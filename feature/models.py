@@ -1,7 +1,8 @@
 from feature import db
+from sqlalchemy.schema import UniqueConstraint
 
 # base model to be inherited by other models
-class Base(db.Modle):
+class Base(db.Model):
     __abstract__ = True
     id = db.Column(db.Integer, primary_key = True)
     created_on = db.Column(db.DateTime, default = db.func.current_timestamp())
@@ -19,7 +20,7 @@ class Feature(Base):
     priority = db.Column(db.SmallInteger)
     targate_date = db.Column(db.DateTime)
     product_area = db.Column(db.String(20))
-    __table_args__ = (UniqueConstraint('client', 'priority', name='_uniq_client_priority'))
+    __table_args__ = (UniqueConstraint('client', 'priority', name='_uniq_client_priority'),)
     
     def __repr__(self):
        return self.title 
